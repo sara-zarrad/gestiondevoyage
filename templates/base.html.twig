@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .navbar-custom {
+            background-color: #0d47a1; /* Dark blue color */
+        }
+        .navbar-custom .navbar-brand,
+        .navbar-custom .nav-link {
+            color: white;
+            font-size: 1rem;
+        }
+        .navbar-custom .nav-link:hover {
+            color: #FFD700; /* Gold hover color */
+        }
+        .navbar-custom .navbar-toggler {
+            border-color: white;
+        }
+        .rounded-logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .footer {
+
+            background-color: #0d47a1;
+            color: white;
+  
+            width: 100%;
+            padding: 0.5rem 1rem;
+            text-align: center;
+        }
+        .btn-custom {
+            color: white;
+            border-color: #FFD700;
+        }
+        .btn-custom:hover {
+            background-color: #FFD700;
+            color: black;
+        }
+        .dropdown-menu-custom {
+            background-color: #0d47a1;
+            border: none;
+        }
+        .dropdown-item-custom {
+            color: white;
+        }
+        .dropdown-item-custom:hover {
+            background-color: #495057;
+        }
+        .navbar-nav {
+            margin: 0 auto;
+        }
+        .navbar-nav .nav-item {
+            margin: 0 10px;
+        }
+        .navbar-custom .nav-link:hover {
+            color: #ffc107; /* Orange hover color */
+        }
+        .btn-custom:hover {
+            background-color: #e09b00; /* Darker orange hover color */
+        }
+        .dropdown-header-custom {
+            color: white;
+            font-weight: bold;
+            padding: .5rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .role-badge {
+            background-color: #FFD700; /* Gold color */
+            color: black;
+            padding: 0.2rem 0.6rem;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            margin-left: 15px;
+        }
+
+        /* Navbar Styles */
+        .navbar-custom {
+            background-color: #0d47a1; /* Dark blue color */
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* 3D effect */
+        }
+
+        /* Footer Styles */
+        .footer {
+            background-color: #0d47a1;
+            color: white;
+            padding: 0.5rem 1rem;
+            text-align: center;
+            box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.2); /* 3D effect */
+        }
+        .footer span {
+            display: block;
+            font-size: 0.8rem;
+            padding: 5px 0;
+        }
+        .profile-picture{
+        
+            width:65px;
+            height:65px;
+        }
+        /* Hide the dropdown arrow indicator */
+.navbar-nav .dropdown-toggle::after {
+    display: none;
+}
+
+    </style>
+    <title>{% block title %}Agence de Voyage{% endblock %}</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-custom">
+    <a class="navbar-brand d-flex align-items-center" href="{{ path('app_accueil') }}">
+        <img src="{{ asset('images/logo.jpg') }}" class="rounded-logo me-2" alt="Logo">
+        <p></p>
+        <span style="color:white; font-size: 1.5rem; font-weight: bold;">Paradis Perdu</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+            {% if is_granted('ROLE_USER') %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_voyage') }}">Nos Voyages</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('messages_new') }}">Contact</a>
+                </li>
+            {% endif %}
+            
+            {% if is_granted('ROLE_ADMIN') %}
+                <li class="nav-item">
+                    <a class="nav-link btn btn-secondary" href="{{ path('app_admin_messages') }}">Messages</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-info" href="{{ path('app_admin_voyage') }}">Créer un voyage</a>
+                </li>
+            {% endif %}
+        </ul>
+        <ul class="navbar-nav">
+            {% if app.user %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                       <img src="images/profile.jpg" class="rounded-circle profile-picture" alt="Profile Picture">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-custom" aria-labelledby="navbarDropdown">
+                        <div class="dropdown-header dropdown-header-custom">
+                    
+                            {{ app.user.userIdentifier }} 
+                            {% if 'ROLE_ADMIN' in app.user.roles %}
+                                <span class="role-badge">Admin</span>
+                            {% elseif 'ROLE_USER' in app.user.roles %}
+                                <span class="role-badge">User</span>
+                            {% endif %}
+                   
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item dropdown-item-custom " href="{{ path('app_logout') }}" style="color:red;">Déconnexion</a>
+                    </div>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a href="{{ path('app_login') }}" class="btn btn-outline-light btn-sm me-2">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ path('app_register') }}" class="btn btn-custom btn-sm">Register</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+{% block body %}
+
+{% endblock %}
+<footer class="footer">
+    <span>Développée par Zarrad Sara & Khadhri Rami &copy; <span id="currentYear"></span></span>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    document.getElementById('currentYear').innerText = new Date().getFullYear();
+</script>
+</body>
+</html>

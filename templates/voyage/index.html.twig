@@ -1,0 +1,265 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Espace Client{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .card {
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+
+        .card-body.collapsed {
+            max-height: 200px; /* Initial height */
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            position: relative;
+        }
+
+        .card-body.expanded {
+            max-height: px; /* Large enough to fit all content */
+            transition: max-height 0.5s ease;
+            position: relative;
+        }
+        .btn-pre-inscrit{
+            width:200px;
+        }
+        .see-more{
+            cursor: pointer;
+            color: #007bff;
+            position: absolute;
+            bottom: 0px;
+            right: 10px;
+        }
+
+        .see-less {
+            display: none; /* Initially hide "see less" button */
+            cursor: pointer;
+            color: #007bff;
+            position: absolute;
+            bottom: 30px;
+            right: 10px;
+        }
+
+        .see-more:hover,
+        .see-less:hover {
+            text-decoration: underline;
+        }
+
+
+        .like-message {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(255, 99, 71, 0.8);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: none;
+            z-index: 9999;
+        }
+
+.like-button {
+  display: flex;
+  align-items: right;
+  justify-content: right;
+
+}
+.like-button.animated {
+  -webkit-animation: pop 0.9s both;
+  animation: pop 0.9s both;
+}
+.like-button svg {
+  opacity: 1;
+}
+.like-button svg path {
+  fill: #333;
+  transition: fill .4s ease-out;
+}
+.like-button.active svg path {   
+  fill: #2196f3;
+ }
+
+@-webkit-keyframes pop {
+  0% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+  30% {
+    -webkit-transform: scale3d(1.25, 0.75, 1);
+    transform: scale3d(1.25, 0.75, 1);
+  }
+  40% {
+    -webkit-transform: scale3d(0.75, 1.25, 1);
+    transform: scale3d(0.75, 1.25, 1);
+  }
+  50% {
+    -webkit-transform: scale3d(1.15, 0.85, 1);
+    transform: scale3d(1.15, 0.85, 1);
+  }
+  65% {
+    -webkit-transform: scale3d(0.95, 1.05, 1);
+    transform: scale3d(0.95, 1.05, 1);
+  }
+  75% {
+    -webkit-transform: scale3d(1.05, 0.95, 1);
+    transform: scale3d(1.05, 0.95, 1);
+  }
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes pop {
+  0% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+  30% {
+    -webkit-transform: scale3d(1.25, 0.75, 1);
+    transform: scale3d(1.25, 0.75, 1);
+  }
+  40% {
+    -webkit-transform: scale3d(0.75, 1.25, 1);
+    transform: scale3d(0.75, 1.25, 1);
+  }
+  50% {
+    -webkit-transform: scale3d(1.15, 0.85, 1);
+    transform: scale3d(1.15, 0.85, 1);
+  }
+  65% {
+    -webkit-transform: scale3d(0.95, 1.05, 1);
+    transform: scale3d(0.95, 1.05, 1);
+  }
+  75% {
+    -webkit-transform: scale3d(1.05, 0.95, 1);
+    transform: scale3d(1.05, 0.95, 1);
+  }
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+} 
+    </style>
+
+      <div class="container my-4">
+        <h1 class="text-center mb-4">Liste des Voyages</h1>
+
+        <div class="row">
+            {% for voyage in voyages %}
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="card shadow-sm">
+                        {% if voyage.image %}
+                            <img src="{{ voyage.DisplayPhoto() }}" class="card-img-top" alt="Image de {{ voyage.titre }}">
+                        {% endif %}
+                        <div class="card-body collapsed">
+                            <div class="like-button">
+                                <svg width="20" height="20" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M320 1344q0-26-19-45t-45-19q-27 0-45.5 19t-18.5 45q0 27 18.5 45.5t45.5 18.5q26 0 45-18.5t19-45.5zm160-512v640q0 26-19 45t-45 19h-288q-26 0-45-19t-19-45v-640q0-26 19-45t45-19h288q26 0 45 19t19 45zm1184 0q0 86-55 149 15 44 15 76 3 76-43 137 17 56 0 117-15 57-54 94 9 112-49 181-64 76-197 78h-129q-66 0-144-15.5t-121.5-29-120.5-39.5q-123-43-158-44-26-1-45-19.5t-19-44.5v-641q0-25 18-43.5t43-20.5q24-2 76-59t101-121q68-87 101-120 18-18 31-48t17.5-48.5 13.5-60.5q7-39 12.5-61t19.5-52 34-50q19-19 45-19 46 0 82.5 10.5t60 26 40 40.5 24 45 12 50 5 45 .5 39q0 38-9.5 76t-19 60-27.5 56q-3 6-10 18t-11 22-8 24h277q78 0 135 57t57 135z"/>
+                                </svg>
+                            </div>
+                            <h5 class="card-title">{{ voyage.titre }} </h5> 
+                            <p class="card-text"><strong>Départ:</strong> {{ voyage.lieuDepart }}</p>
+                            <p class="card-text"><strong>Arrivée:</strong> {{ voyage.lieuArrive }}</p>
+                            
+                            <span class="see-less">Voir moins ←</span>
+                            <span class="see-more">Voir les détails &rarr;</span>
+                         
+                            <p class="card-text"><strong>Date de départ:</strong> {{ voyage.dateDepart|date('Y-m-d H:i:s') }}</p>
+                            <p class="card-text"><strong>Date d'arrivée:</strong> {{ voyage.dateArrive|date('Y-m-d H:i:s') }}</p>
+                            <p class="card-text" data-depart="{{ voyage.dateDepart|date('Y-m-d H:i:s') }}" data-arrive="{{ voyage.dateArrive|date('Y-m-d H:i:s') }}">
+                                <strong>Durée:</strong> <span class="duree"></span>
+                            
+                            <p class="card-text"><strong>Description:</strong> {{ voyage.Description }}</p>
+                            <a href="{{ path('app_inscrit') }}" class="btn btn-success btn-pre-inscrit mt-auto">Pré-Inscrit</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="like-message" id="likeMessage"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const seeMoreButtons = document.querySelectorAll('.see-more');
+            const seeLessButtons = document.querySelectorAll('.see-less');
+            const likeMessage = document.getElementById('likeMessage');
+
+            seeMoreButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const cardBody = this.closest('.card-body');
+                    const card = this.closest('.card');
+                    card.querySelector('.see-less').style.display = 'block';
+                    card.querySelector('.see-more').style.display = 'none';
+                    cardBody.classList.remove('collapsed');
+                    cardBody.classList.add('expanded');
+                });
+            });
+
+            seeLessButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const cardBody = this.closest('.card-body');
+                    const card = this.closest('.card');
+                    card.querySelector('.see-less').style.display = 'none';
+                    card.querySelector('.see-more').style.display = 'block';
+                    cardBody.classList.remove('expanded');
+                    cardBody.classList.add('collapsed');
+                });
+            });
+
+            const dureeElements = document.querySelectorAll('.card-text[data-depart]');
+            dureeElements.forEach(element => {
+                const depart = new Date(element.getAttribute('data-depart'));
+                const arrive = new Date(element.getAttribute('data-arrive'));
+                const duree = Math.ceil((arrive - depart) / (1000 * 60 * 60 * 24)); // Calculate duration in days
+                element.querySelector('.duree').textContent = `${duree} jours`;
+            });
+
+            const likeButtons = document.querySelectorAll('.like-button');
+            likeButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    this.classList.toggle('active');
+                    generateClones(this);
+                });
+            });
+        });
+
+        function generateClones(button) {
+            const clones = randomInt(2, 4);
+            for (let i = 0; i < clones; i++) {
+                const clone = button.querySelector('svg').cloneNode(true);
+                const size = randomInt(5, 16);
+                                button.appendChild(clone);
+                clone.setAttribute('width', size);
+                clone.setAttribute('height', size);
+                clone.style.position = 'absolute';
+                clone.style.transition = 'transform 0.5s cubic-bezier(0.12, 0.74, 0.58, 0.99) 0.3s, opacity 1s ease-out .5s';
+                setTimeout(() => {
+                    clone.style.transform = `translate3d(${plusOrMinus() * randomInt(10, 25)}px, ${plusOrMinus() * randomInt(10, 25)}px, 0)`;
+                    clone.style.opacity = 0;
+                }, 1);
+                setTimeout(() => {
+                    clone.parentNode.removeChild(clone);
+                    button.classList.remove('animated');
+                }, 900);
+            }
+        }
+
+        function plusOrMinus() {
+            return Math.random() < 0.5 ? -1 : 1;
+        }
+
+        function randomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1) + min);
+        }
+    </script>
+{% endblock %}

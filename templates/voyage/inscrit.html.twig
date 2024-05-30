@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message a été envoyée</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #1488EA;
+            font-family: 'Source Sans Pro', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        #card {
+            position: relative;
+            width: 320px;
+            text-align: center;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0px 15px 30px rgba(50, 50, 50, 0.21);
+            animation: fadeIn 1s ease-in-out;
+        }
+        #upper-side {
+            padding: 2em;
+            background-color: #8BC34A;
+            color: #fff;
+            border-top-right-radius: 8px;
+            border-top-left-radius: 8px;
+        }
+        #checkmark {
+            fill: #fff;
+            margin: 0 auto 10px;
+        }
+        #status {
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 1.5em;
+            margin: 0;
+        }
+        #lower-side {
+            padding: 2em;
+            background: #fff;
+            border-bottom-right-radius: 8px;
+            border-bottom-left-radius: 8px;
+        }
+        #message {
+            color: #757575;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+        #contBtn {
+            display: inline-block;
+            margin-top: 2em;
+            text-decoration: none;
+            background: #8BC34A;
+            color: #fff;
+            padding: 0.8em 3em;
+            border-radius: 25px;
+            box-shadow: 0px 15px 30px rgba(50, 50, 50, 0.21);
+            transition: all 0.4s ease;
+        }
+        #contBtn:hover {
+            box-shadow: 0px 15px 30px rgba(60, 60, 60, 0.4);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div id="card" class="animated fadeIn">
+        <div id="upper-side">
+            <svg id="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="48" height="48">
+                <circle fill="none" stroke="#ffffff" stroke-width="2" cx="12" cy="12" r="10"/>
+                <path fill="none" stroke="#ffffff" stroke-width="2" d="M6 12l4 4 8-8"/>
+            </svg>
+            <h3 id="status">Success</h3>
+        </div>
+        <div id="lower-side">
+            <p id="message">
+                Félicitations! Vous êtes inscrit à cette voyage.
+            </p>
+            <a href="{{ path('app_voyage') }}" id="contBtn">Continue</a>
+        </div>
+    </div>
+</body>
+</html>

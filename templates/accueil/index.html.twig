@@ -1,0 +1,196 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Welcome{% endblock %}
+
+{% block body %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+    <style>
+
+
+.wrapper {
+    display: flex;
+    width: 100%; 
+    margin: 0; 
+    height: 81vh; 
+    background: #fff;
+    position: relative;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.carousel {
+    display: flex;
+    height: 100%;
+    width: calc(16 * 100%); /* Adjust for the number of slides */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    transition: all 0.4s ease;
+}
+
+.carousel div {
+    height: 100%;
+    width: calc(100% / 15); /* Adjust for the number of slides */
+    background-size: cover;
+    background-position: center;
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+}
+
+        .wrapper i.button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 36px;
+            width: 36px;
+            background-color: #343f4f;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 36px;
+            color: white;
+            font-size: 15px;
+            transition: all 0.3s linear;
+            z-index: 100;
+            cursor: pointer;
+        }
+
+        i.button:active {
+            transform: scale(0.94) translateY(-50%);
+        }
+
+        i#prev {
+            left: 10px;
+        }
+
+        i#next {
+            right: 10px;
+        }
+
+        .image-container {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+        }
+
+
+        .slide1 {
+            background-image: url('{{ asset('images/1.jpg') }}');
+        }
+
+        .slide2 {
+            background-image: url('{{ asset('images/2.jpg') }}');
+        }
+
+        .slide3 {
+            background-image: url('{{ asset('images/3.jpg') }}');
+        }
+
+        .slide4 {
+            background-image: url('{{ asset('images/4.jpg') }}');
+        }
+
+        .slide5 {
+            background-image: url('{{ asset('images/5.jpg') }}');
+        }
+
+        .slide6 {
+            background-image: url('{{ asset('images/6.jpg') }}');
+        }
+
+        .slide7 {
+            background-image: url('{{ asset('images/7.jpg') }}');
+        }
+
+        .slide8 {
+            background-image: url('{{ asset('images/8.jpg') }}');
+        }
+
+        .slide9 {
+            background-image: url('{{ asset('images/9.jpg') }}');
+        }
+
+        .slide10 {
+            background-image: url('{{ asset('images/10.jpg') }}');
+        }
+
+        .slide11 {
+            background-image: url('{{ asset('images/11.jpg') }}');
+        }
+
+        .slide12 {
+            background-image: url('{{ asset('images/12.jpg') }}');
+        }
+
+        .slide13 {
+            background-image: url('{{ asset('images/13.jpg') }}');
+        }
+
+        .slide14 {
+            background-image: url('{{ asset('images/14.jpg') }}');
+        }
+
+        .slide15 {
+            background-image: url('{{ asset('images/15.jpg') }}');
+        }
+         .slide16 {
+            background-image: url('{{ asset('images/16.jpg') }}');
+        }
+    </style>
+<body>
+    <section class="wrapper">
+        <i class="fa-solid fa-arrow-left button" id="prev"></i>
+        <div class="image-container">
+            <div class="carousel">
+                <div class="slide1"></div>
+                <div class="slide2"></div>
+                <div class="slide3"></div>
+                <div class="slide4"></div>
+                <div class="slide5"></div>
+                <div class="slide6"></div>
+                <div class="slide7"></div>
+                <div class="slide8"></div>
+                <div class="slide9"></div>
+                <div class="slide10"></div>
+                <div class="slide11"></div>
+                <div class="slide12"></div>
+                <div class="slide13"></div>
+                <div class="slide14"></div>
+                <div class="slide15"></div>
+                <div class="slide16"></div>
+            </div>
+        </div>
+        <i class="fa-solid fa-arrow-right button" id="next"></i>
+    </section>
+<body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const carousel = document.querySelector(".carousel"),
+                slides = document.querySelectorAll(".carousel div"),
+                buttons = document.querySelectorAll(".button");
+            let imageIndex = 0,
+                intervalId;
+
+            const autoSlide = () => {
+                intervalId = setInterval(() => slideImage(++imageIndex), 2000);
+            };
+
+            autoSlide();
+
+            const slideImage = () => {
+                imageIndex = imageIndex === slides.length ? 0 : imageIndex < 0 ? slides.length - 1 : imageIndex;
+                carousel.style.transform = `translateX(-${imageIndex * 100 / slides.length}%)`;
+            };
+
+            const updateClick = (e) => {
+                clearInterval(intervalId);
+                imageIndex += e.target.id === "next" ? 1 : -1;
+                slideImage();
+                autoSlide();
+            };
+
+            buttons.forEach(button => button.addEventListener("click", updateClick));
+            document.querySelector(".wrapper").addEventListener("mouseover", () => clearInterval(intervalId));
+            document.querySelector(".wrapper").addEventListener("mouseleave", autoSlide);
+        });
+    </script>
+{% endblock %}
+

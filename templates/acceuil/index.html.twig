@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Welcome{% endblock %}
+
+{% block body %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Ensure the body and HTML cover the entire viewport */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        /* Set the slider container to cover the entire width of the container */
+        .slider-container {
+            width: 100%; /* Set the width to cover the full width of the viewport */
+            height: 78vh; /* Set the height to cover the full height of the viewport */
+            overflow: hidden; /* Hide overflow to prevent horizontal scrollbar */
+            display: flex; /* Use flexbox to arrange images horizontally */
+            transition: transform 0.5s ease; /* Smooth transition effect */
+        }
+
+        /* Set images to fit within the slider container */
+        .slider-container img {
+            width: 100%; /* Set the width to cover the full width of the slider container */
+            height: auto; /* Set the height to adjust automatically based on content */
+            object-fit: cover; /* Ensure images cover the full container width */
+        }
+    </style>
+
+    <body>
+        <div class="slider-container">
+            <img src="{{ asset('images/egypt2.jpg') }}" >
+            <img src="{{ asset('images/Bodrum.jpg') }}" >
+            <img src="{{ asset('images/istanbul2.jpg') }}" >
+        </div>
+    </body>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let currentIndex = 0;
+            const images = document.querySelectorAll('.slider-container img');
+            const totalImages = images.length;
+
+            setInterval(function() {
+                currentIndex = (currentIndex + 1) % totalImages;
+                const translateValue = -currentIndex * 100;
+                images.forEach((image, index) => {
+                    if (index === currentIndex) {
+                        image.style.display = 'block';
+                    } else {
+                        image.style.display = 'none';
+                    }
+                });
+            }, 3000); // Switch images every 3 seconds
+        });
+    </script>
+{% endblock %}

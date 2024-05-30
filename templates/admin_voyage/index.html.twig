@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Espace Admin{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <!-- Include any additional stylesheets here -->
+{% endblock %}
+
+{% block body %}
+<br>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Ajouter un voyage</div>
+                <div class="card-body">
+                    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+                        <div class="form-group row">
+                            <label for="titre" class="col-md-4 col-form-label text-md-right">Titre:</label>
+                            <div class="col-md-6">
+                                {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="lieuDepart" class="col-md-4 col-form-label text-md-right">Lieu de départ:</label>
+                            <div class="col-md-6">
+                                {{ form_widget(form.lieuDepart, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="lieuArrive" class="col-md-4 col-form-label text-md-right">Lieu d'arrivée:</label>
+                            <div class="col-md-6">
+                                {{ form_widget(form.lieuArrive, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="dateDepart" class="col-md-4 col-form-label text-md-right">Date de départ:</label>
+                            <div class="col-md-6">
+                                {{ form_widget(form.dateDepart, {'attr': {'class': 'form-control', 'type': 'date'}}) }}
+                            </div>
+                        </div>
+                
+
+                        <div class="form-group row">
+                            <label for="dateArrive" class="col-md-4 col-form-label text-md-right">Date d'arrivée:</label>
+                            <div class="col-md-6">
+                                {{ form_widget(form.dateArrive, {'attr': {'class': 'form-control', 'type': 'date'}}) }}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="description" class="col-md-4 col-form-label text-md-right">Description:</label>
+                            <div class="col-md-6">
+                                {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="image" class="col-md-4 col-form-label text-md-right">Image:</label>
+                            <div class="col-md-6">
+                                {{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-success">Ajouter</button>
+                            </div>
+                        </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+{% endblock %}
